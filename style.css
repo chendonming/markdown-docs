@@ -95,6 +95,7 @@ body {
     transition: margin-left var(--transition-speed) ease;
     /* 新增：为 TOC 留出右侧空间 */
     padding-right: calc(var(--toc-width) + 30px);
+    padding-left: 50px;
 }
 
 /* 5. 左侧切换按钮样式 (无变化) */
