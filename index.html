@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文档查看器</title>
     <link rel="stylesheet" href="style.css">
-    <!-- 核心改动：为 link 标签添加 id，并设置一个默认的 href -->
     <link id="markdown-theme-style" rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown.min.css">
-    <!-- 引入 marked.js 用于解析 Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
@@ -33,12 +31,24 @@
                 <!-- 文件列表将由 JavaScript 动态生成 -->
             </ul>
         </nav>
+
         <main class="content markdown-body" id="content-area">
             <h2>欢迎！</h2>
             <p>请从左侧选择一个文档进行查看。</p>
         </main>
 
         <button id="toggle-btn" title="收起/展开侧边栏">‹</button>
+
+        <!-- 新增：TOC (Table of Contents) 容器 -->
+        <aside id="toc-container">
+            <div class="toc-header">
+                <h4>目录</h4>
+                <button id="toggle-toc-btn" title="收起/展开目录">›</button>
+            </div>
+            <ul id="toc-list">
+                <!-- TOC 列表将由 JavaScript 动态生成 -->
+            </ul>
+        </aside>
     </div>
 
     <script src="main.js"></script>

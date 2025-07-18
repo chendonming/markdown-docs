@@ -1,6 +1,7 @@
-/* 1. 主题与颜色变量 */
+/* 1. 主题与颜色变量 (无变化) */
 :root {
     --sidebar-width: 280px;
+    --toc-width: 250px; /* 新增：TOC 宽度变量 */
     --transition-speed: 0.3s;
     --bg-color: #f4f4f9;
     --content-bg-color: #ffffff;
@@ -25,20 +26,18 @@ html[data-theme="dark"] {
     --header-color: #8ab4f8;
 }
 
-/* 2. 全局与布局样式 */
+/* 2. 全局与布局样式 (无变化) */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
-
 .container {
     display: flex;
+    background-color: var(--bg-color);
+    transition: background-color var(--transition-speed);
 }
 
-/* 3. 侧边栏样式 */
+/* 3. 侧边栏样式 (无变化) */
 .sidebar {
     position: fixed;
     top: 0;
@@ -46,25 +45,23 @@ body {
     height: 100vh;
     width: var(--sidebar-width);
     background-color: var(--content-bg-color);
+    color: var(--text-color);
     border-right: 1px solid var(--border-color);
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition-speed) ease;
+    transition: transform var(--transition-speed) ease, background-color var(--transition-speed);
     z-index: 50;
 }
-
 .sidebar-header {
     margin-bottom: 15px;
 }
-
 .sidebar-header h1 {
     font-size: 1.5em;
     margin: 0;
     color: var(--header-color);
 }
-
 #file-list {
     list-style: none;
     padding: 0;
@@ -88,18 +85,19 @@ body {
     color: var(--link-active-text);
 }
 
-/* 4. 内容区样式 */
+/* 4. 内容区样式 (修改) */
 .content.markdown-body {
     flex-grow: 1;
     margin-left: var(--sidebar-width);
-    padding: 30px 40px;
     height: 100vh;
     box-sizing: border-box;
     overflow-y: auto;
     transition: margin-left var(--transition-speed) ease;
+    /* 新增：为 TOC 留出右侧空间 */
+    padding-right: calc(var(--toc-width) + 30px);
 }
 
-/* 5. 切换按钮样式 */
+/* 5. 左侧切换按钮样式 (无变化) */
 #toggle-btn {
     position: fixed;
     z-index: 100;
@@ -120,21 +118,19 @@ body {
     transition: transform var(--transition-speed) ease, left var(--transition-speed) ease;
 }
 
-/* 6. 收起状态下的样式 */
+/* 6. 左侧收起状态下的样式 (修改) */
 body.sidebar-collapsed .sidebar {
     transform: translateX(calc(-1 * var(--sidebar-width)));
 }
-
 body.sidebar-collapsed .content.markdown-body {
     margin-left: 0;
 }
-
 body.sidebar-collapsed #toggle-btn {
     transform: rotate(180deg);
     left: 20px;
 }
 
-/* 7. 主题选择器样式 */
+/* 7. 主题选择器样式 (无变化) */
 .sidebar-controls {
     display: flex;
     align-items: center;
@@ -146,4 +142,81 @@ body.sidebar-collapsed #toggle-btn {
     border: 1px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
+}
+
+/* 8. 新增：TOC 目录样式 */
+#toc-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: var(--toc-width);
+    background-color: var(--content-bg-color);
+    color: var(--text-color);
+    border-left: 1px solid var(--border-color);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 40;
+    transition: transform var(--transition-speed) ease, background-color var(--transition-speed);
+}
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.toc-header h4 {
+    margin: 0;
+    font-size: 1.2em;
+}
+#toggle-toc-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color);
+    transform: rotate(0deg);
+    transition: transform var(--transition-speed) ease;
+}
+#toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+.toc-link {
+    display: block;
+    padding: 6px 0;
+    text-decoration: none;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-left: 3px solid transparent;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+.toc-link:hover {
+    opacity: 1;
+}
+.toc-link.active {
+    opacity: 1;
+    font-weight: bold;
+    border-left-color: var(--link-active-bg);
+}
+.toc-h1 {
+    padding-left: 5px;
+}
+.toc-h2 {
+    padding-left: 20px;
+}
+.toc-h3 {
+    padding-left: 35px;
+}
+
+/* 9. 新增：TOC 收起状态 */
+#toc-container.toc-collapsed {
+    transform: translateX(100%);
+}
+#toc-container.toc-collapsed #toggle-toc-btn {
+    transform: rotate(180deg);
 }
