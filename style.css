@@ -1,0 +1,149 @@
+/* 1. 主题与颜色变量 */
+:root {
+    --sidebar-width: 280px;
+    --transition-speed: 0.3s;
+    --bg-color: #f4f4f9;
+    --content-bg-color: #ffffff;
+    --text-color: #333333;
+    --link-color: #0056b3;
+    --link-hover-bg: #e9ecef;
+    --link-active-bg: #007bff;
+    --link-active-text: #ffffff;
+    --border-color: #dddddd;
+    --header-color: #0056b3;
+}
+
+html[data-theme="dark"] {
+    --bg-color: #121212;
+    --content-bg-color: #1e1e1e;
+    --text-color: #e0e0e0;
+    --link-color: #8ab4f8;
+    --link-hover-bg: #2c2c2c;
+    --link-active-bg: #8ab4f8;
+    --link-active-text: #1e1e1e;
+    --border-color: #444444;
+    --header-color: #8ab4f8;
+}
+
+/* 2. 全局与布局样式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.container {
+    display: flex;
+}
+
+/* 3. 侧边栏样式 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    background-color: var(--content-bg-color);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed) ease;
+    z-index: 50;
+}
+
+.sidebar-header {
+    margin-bottom: 15px;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5em;
+    margin: 0;
+    color: var(--header-color);
+}
+
+#file-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+#file-list li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--text-color);
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+#file-list li a:hover {
+    background-color: var(--link-hover-bg);
+}
+#file-list li a.active {
+    background-color: var(--link-active-bg);
+    color: var(--link-active-text);
+}
+
+/* 4. 内容区样式 */
+.content.markdown-body {
+    flex-grow: 1;
+    margin-left: var(--sidebar-width);
+    padding: 30px 40px;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: margin-left var(--transition-speed) ease;
+}
+
+/* 5. 切换按钮样式 */
+#toggle-btn {
+    position: fixed;
+    z-index: 100;
+    top: 25px;
+    left: calc(var(--sidebar-width) - 50px);
+    background: var(--link-hover-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-speed) ease, left var(--transition-speed) ease;
+}
+
+/* 6. 收起状态下的样式 */
+body.sidebar-collapsed .sidebar {
+    transform: translateX(calc(-1 * var(--sidebar-width)));
+}
+
+body.sidebar-collapsed .content.markdown-body {
+    margin-left: 0;
+}
+
+body.sidebar-collapsed #toggle-btn {
+    transform: rotate(180deg);
+    left: 20px;
+}
+
+/* 7. 主题选择器样式 */
+.sidebar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sidebar-controls select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}

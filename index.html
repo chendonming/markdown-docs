@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档查看器</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 核心改动：为 link 标签添加 id，并设置一个默认的 href -->
+    <link id="markdown-theme-style" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown.min.css">
+    <!-- 引入 marked.js 用于解析 Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>文档列表</h1>
+            </div>
+
+            <div class="sidebar-controls">
+                <label for="theme-selector">主题:</label>
+                <select id="theme-selector">
+                    <option value="system">跟随系统</option>
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                </select>
+            </div>
+
+            <ul id="file-list">
+                <!-- 文件列表将由 JavaScript 动态生成 -->
+            </ul>
+        </nav>
+        <main class="content markdown-body" id="content-area">
+            <h2>欢迎！</h2>
+            <p>请从左侧选择一个文档进行查看。</p>
+        </main>
+
+        <button id="toggle-btn" title="收起/展开侧边栏">‹</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
