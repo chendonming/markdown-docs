@@ -1,7 +1,7 @@
 /* 1. 主题与颜色变量 (无变化) */
 :root {
     --sidebar-width: 280px;
-    --toc-width: 250px; /* 新增：TOC 宽度变量 */
+    --toc-width: 250px;
     --transition-speed: 0.3s;
     --bg-color: #f4f4f9;
     --content-bg-color: #ffffff;
@@ -13,7 +13,6 @@
     --border-color: #dddddd;
     --header-color: #0056b3;
 }
-
 html[data-theme="dark"] {
     --bg-color: #121212;
     --content-bg-color: #1e1e1e;
@@ -85,7 +84,7 @@ body {
     color: var(--link-active-text);
 }
 
-/* 4. 内容区样式 (修改) */
+/* 4. 内容区样式 (无变化) */
 .content.markdown-body {
     flex-grow: 1;
     margin-left: var(--sidebar-width);
@@ -93,9 +92,7 @@ body {
     box-sizing: border-box;
     overflow-y: auto;
     transition: margin-left var(--transition-speed) ease;
-    /* 新增：为 TOC 留出右侧空间 */
     padding-right: calc(var(--toc-width) + 30px);
-    padding-left: 50px;
 }
 
 /* 5. 左侧切换按钮样式 (无变化) */
@@ -119,7 +116,7 @@ body {
     transition: transform var(--transition-speed) ease, left var(--transition-speed) ease;
 }
 
-/* 6. 左侧收起状态下的样式 (修改) */
+/* 6. 左侧收起状态下的样式 (无变化) */
 body.sidebar-collapsed .sidebar {
     transform: translateX(calc(-1 * var(--sidebar-width)));
 }
@@ -145,7 +142,7 @@ body.sidebar-collapsed #toggle-btn {
     color: var(--text-color);
 }
 
-/* 8. 新增：TOC 目录样式 */
+/* 8. TOC 目录样式 (无变化) */
 #toc-container {
     position: fixed;
     top: 0;
@@ -213,11 +210,37 @@ body.sidebar-collapsed #toggle-btn {
 .toc-h3 {
     padding-left: 35px;
 }
-
-/* 9. 新增：TOC 收起状态 */
 #toc-container.toc-collapsed {
     transform: translateX(100%);
 }
 #toc-container.toc-collapsed #toggle-toc-btn {
     transform: rotate(180deg);
+}
+
+/* 9. 新增：文件树样式 */
+#file-list ul {
+    padding-left: 20px;
+    margin: 5px 0;
+}
+#file-list summary {
+    cursor: pointer;
+    padding: 8px 0;
+    font-weight: 500;
+    list-style: none; /* 移除默认三角 */
+    position: relative;
+    padding-left: 20px;
+}
+#file-list summary::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    transition: transform 0.2s;
+    color: var(--text-color);
+}
+#file-list details[open] > summary::before {
+    transform: rotate(90deg);
+}
+#file-list details {
+    margin-top: 2px;
 }
