@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const markdownText = await response.text();
             contentAreaElement.innerHTML = marked.parse(markdownText);
+            contentAreaElement.scrollTop = 0;
             currentFile = filename;
             updateToc();
         } catch (error) {
