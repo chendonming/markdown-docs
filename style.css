@@ -91,6 +91,7 @@ body {
     padding-right: calc(var(--toc-width) + 30px);
     padding-left: 50px;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #toggle-btn {
